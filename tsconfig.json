@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
     "declaration": true,
     "declarationDir": "build",
     "module": "esnext",
@@ -15,10 +16,10 @@
     "noImplicitThis": true,
     "strict": true,
     "strictNullChecks": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "baseUrl": "./src"
+  },
+  "tsc-alias": {
+    "resolveFullPaths": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

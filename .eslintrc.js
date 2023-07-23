@@ -7,29 +7,19 @@ module.exports = {
     createDefaultProgram: true,
   },
   settings: {
-    react: {
-      version: '18.2.0',
-    },
-    'import/extensions': ['.ts', '.tsx'],
-    'import/resolver': {
-      typescript: {},
-    },
+    'import/extensions': ['.ts'],
+    'import/resolver': { typescript: {} },
   },
   extends: [
     'plugin:import/recommended',
     'plugin:import/typescript',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
-  plugins: ['@typescript-eslint', 'jam3', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     'import/no-named-as-default-member': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
-    'react-hooks/exhaustive-deps': 'off',
     'no-console': [
       'warn',
       {
