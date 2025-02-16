@@ -1,0 +1,145 @@
+services:
+  # Dev DB
+  database-dev:
+    image: postgres
+    environment:
+      - "POSTGRES_USER=admin"
+      - "POSTGRES_PASSWORD=abcd#1234"
+      - "POSTGRES_DB=dev"
+    ports:
+      - "5432:5432"
+    restart: always
+    healthcheck:
+      # Password not required to test healthcheck https://www.postgresql.org/docs/current/app-pg-isready.html
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+
+  # Test DBs
+  database-test1:
+    image: postgres
+    environment:
+      - "POSTGRES_USER=admin"
+      - "POSTGRES_PASSWORD=abcd#1234"
+      - "POSTGRES_DB=test1"
+    ports:
+      - "5433:5432"
+    restart: always
+    tmpfs:
+      - /data # Store PG data in memory for faster I/O
+    healthcheck:
+      # Password not required to test healthcheck https://www.postgresql.org/docs/current/app-pg-isready.html
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+    command: >
+      postgres -c fsync=off
+      -c full_page_writes=off
+      -c synchronous_commit=off
+      -c shared_buffers=256MB
+      -c work_mem=64MB
+      -c maintenance_work_mem=128MB
+      -c autovacuum=off
+      -c checkpoint_timeout=30min
+      -c max_wal_size=2GB
+      -c checkpoint_completion_target=0.9
+
+  database-test2:
+    image: postgres
+    environment:
+      - "POSTGRES_USER=admin"
+      - "POSTGRES_PASSWORD=abcd#1234"
+      - "POSTGRES_DB=test2"
+    ports:
+      - "5434:5432"
+    restart: always
+    tmpfs:
+      - /data # Store PG data in memory for faster I/O
+    healthcheck:
+      # Password not required to test healthcheck https://www.postgresql.org/docs/current/app-pg-isready.html
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+    command: >
+      postgres -c fsync=off
+      -c full_page_writes=off
+      -c synchronous_commit=off
+      -c shared_buffers=256MB
+      -c work_mem=64MB
+      -c maintenance_work_mem=128MB
+      -c autovacuum=off
+      -c checkpoint_timeout=30min
+      -c max_wal_size=2GB
+      -c checkpoint_completion_target=0.9
+
+  database-test3:
+    image: postgres
+    environment:
+      - "POSTGRES_USER=admin"
+      - "POSTGRES_PASSWORD=abcd#1234"
+      - "POSTGRES_DB=test3"
+    ports:
+      - "5435:5432"
+    restart: always
+    tmpfs:
+      - /data # Store PG data in memory for faster I/O
+    healthcheck:
+      # Password not required to test healthcheck https://www.postgresql.org/docs/current/app-pg-isready.html
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+    command: >
+      postgres -c fsync=off
+      -c full_page_writes=off
+      -c synchronous_commit=off
+      -c shared_buffers=256MB
+      -c work_mem=64MB
+      -c maintenance_work_mem=128MB
+      -c autovacuum=off
+      -c checkpoint_timeout=30min
+      -c max_wal_size=2GB
+      -c checkpoint_completion_target=0.9
+
+  database-test4:
+    image: postgres
+    environment:
+      - "POSTGRES_USER=admin"
+      - "POSTGRES_PASSWORD=abcd#1234"
+      - "POSTGRES_DB=test4"
+    ports:
+      - "5436:5432"
+    restart: always
+    tmpfs:
+      - /data # Store PG data in memory for faster I/O
+    healthcheck:
+      # Password not required to test healthcheck https://www.postgresql.org/docs/current/app-pg-isready.html
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+    command: >
+      postgres -c fsync=off
+      -c full_page_writes=off
+      -c synchronous_commit=off
+      -c shared_buffers=256MB
+      -c work_mem=64MB
+      -c maintenance_work_mem=128MB
+      -c autovacuum=off
+      -c checkpoint_timeout=30min
+      -c max_wal_size=2GB
+      -c checkpoint_completion_target=0.9
+
+  database-test5:
+    image: postgres
+    environment:
+      - "POSTGRES_USER=admin"
+      - "POSTGRES_PASSWORD=abcd#1234"
+      - "POSTGRES_DB=test5"
+    ports:
+      - "5437:5432"
+    restart: always
+    tmpfs:
+      - /data # Store PG data in memory for faster I/O
+    healthcheck:
+      # Password not required to test healthcheck https://www.postgresql.org/docs/current/app-pg-isready.html
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+    command: >
+      postgres -c fsync=off
+      -c full_page_writes=off
+      -c synchronous_commit=off
+      -c shared_buffers=256MB
+      -c work_mem=64MB
+      -c maintenance_work_mem=128MB
+      -c autovacuum=off
+      -c checkpoint_timeout=30min
+      -c max_wal_size=2GB
+      -c checkpoint_completion_target=0.9

@@ -1,26 +1,26 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "declaration": true,
-    "declarationDir": "build",
-    "module": "esnext",
+    "declaration": false,
+    "module": "commonjs",
     "target": "es2022",
     "lib": ["dom", "dom.iterable", "es2022"],
     "sourceMap": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "resolveJsonModule": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strict": true,
-    "strictNullChecks": true,
-    "baseUrl": "./src"
+    "strictNullChecks": true
   },
-  "tsc-alias": {
-    "resolveFullPaths": true
-  },
-  "include": ["src/**/*"],
+  "include": [
+    "../core/**/*",
+    "src/**/*",
+    "spec/**/*",
+    "database/**/*"
+  ],
   "exclude": ["node_modules"]
 }
