@@ -12,7 +12,7 @@ import {
 import { refreshTokenDecoder } from "../../../../core/Data/Security/RefreshToken"
 import * as RefreshTokenRow from "../../../src/Database/RefreshTokenRow"
 
-describe("Handler/refreshToken", () => {
+describe("Api/Public/RefreshToken", () => {
   test("refreshes the tokens as 1 row per session", async () => {
     const email = _fromJust(createEmail("user@example.com"))
     const user = await _createUser(email.unwrap())

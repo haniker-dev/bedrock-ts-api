@@ -87,6 +87,41 @@ export async function getByEmail(email: Email): Promise<Maybe<UserRow>> {
     })
 }
 
+export type UpdateParams = {
+  name: Name
+  email: Email
+  newHashedPassword: Maybe<Hash>
+}
+export async function update(
+  id: UserID,
+  params: UpdateParams,
+): Promise<UserRow> {
+  const { name, email, newHashedPassword } = params
+
+  const fields = {
+    name: name.unwrap(),
+    email: email.unwrap(),
+    updatedAt: toDate(createNow()),
+  }
+
+  const fieldsWithPassword =
+    newHashedPassword != null
+      ? { ...fields, password: newHashedPassword.unwrap() }
+      : fields
+
+  return db
+    .updateTable(tableName)
+    .set(fieldsWithPassword)
+    .where("id", "=", id.unwrap())
+    .returningAll()
+    .executeTakeFirstOrThrow()
+    .then(userRowDecoder.verify)
+    .catch((e) => {
+      Logger.error(`#${tableName}.update error ${e}`)
+      throw e
+    })
+}
+
 export async function count(): Promise<Nat> {
   return db
     .selectFrom(tableName)

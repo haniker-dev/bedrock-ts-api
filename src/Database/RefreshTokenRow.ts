@@ -16,6 +16,8 @@ import {
 } from "../../../core/Data/Security/RefreshToken"
 import db from "../Database"
 
+const tableName = "refresh_token"
+
 /** RefreshToken has a 90 days expiry **/
 export const refreshTokenExpiryMS = 90 * 24 * 60 * 60 * 1000
 
@@ -40,7 +42,7 @@ export async function create(userID: UserID): Promise<RefreshToken> {
   const now = toDate(createNow())
   const refreshToken = createRefreshToken()
   return db
-    .insertInto("refresh_token")
+    .insertInto(tableName)
     .values({
       id: refreshToken.unwrap(),
       previousID: refreshToken.unwrap(),
@@ -51,7 +53,7 @@ export async function create(userID: UserID): Promise<RefreshToken> {
     .executeTakeFirstOrThrow()
     .then(() => refreshToken)
     .catch((e) => {
-      Logger.error(`#RefreshTokenRow.create error ${e}`)
+      Logger.error(`#${tableName}.create error ${e}`)
       throw e
     })
 }
@@ -61,7 +63,7 @@ export async function replace(row: RefreshTokenRow): Promise<RefreshTokenRow> {
   const now = toDate(createNow())
   const refreshToken = createRefreshToken()
   return db
-    .updateTable("refresh_token")
+    .updateTable(tableName)
     .set({
       id: refreshToken.unwrap(),
       userID: row.userID.unwrap(),
@@ -75,7 +77,7 @@ export async function replace(row: RefreshTokenRow): Promise<RefreshTokenRow> {
     .executeTakeFirstOrThrow()
     .then(rowDecoder.verify)
     .catch((e) => {
-      Logger.error(`#RefreshTokenRow.create error ${e}`)
+      Logger.error(`#${tableName}.create error ${e}`)
       throw e
     })
 }
@@ -93,14 +95,14 @@ export async function get(
   refreshToken: RefreshToken,
 ): Promise<RefreshTokenRow | null> {
   return db
-    .selectFrom("refresh_token")
+    .selectFrom(tableName)
     .selectAll()
     .where("id", "=", refreshToken.unwrap())
     .where("userID", "=", userID.unwrap())
     .executeTakeFirstOrThrow()
     .then(rowDecoder.verify)
     .catch((e) => {
-      Logger.error(`#RefreshTokenRow.get error ${e}`)
+      Logger.error(`#${tableName}.get error ${e}`)
       return null
     })
 }
@@ -110,14 +112,14 @@ export async function getByPrevious(
   refreshToken: RefreshToken,
 ): Promise<RefreshTokenRow | null> {
   return db
-    .selectFrom("refresh_token")
+    .selectFrom(tableName)
     .selectAll()
     .where("previousID", "=", refreshToken.unwrap())
     .where("userID", "=", userID.unwrap())
     .executeTakeFirstOrThrow()
     .then(rowDecoder.verify)
     .catch((e) => {
-      Logger.error(`#RefreshTokenRow.get error ${e}`)
+      Logger.error(`#${tableName}.get error ${e}`)
       return null
     })
 }
@@ -127,25 +129,25 @@ export async function remove(
   refreshToken: RefreshToken,
 ): Promise<number> {
   return db
-    .deleteFrom("refresh_token")
+    .deleteFrom(tableName)
     .where("id", "=", refreshToken.unwrap())
     .where("userID", "=", userID.unwrap())
     .executeTakeFirst()
     .then((r) => Number(r.numDeletedRows) || 0)
     .catch((e) => {
-      Logger.error(`#RefreshTokenRow.remove error ${e}`)
+      Logger.error(`#${tableName}.remove error ${e}`)
       throw e
     })
 }
 
 export async function removeAllByUser(userID: UserID): Promise<number> {
   return db
-    .deleteFrom("refresh_token")
+    .deleteFrom(tableName)
     .where("userID", "=", userID.unwrap())
     .executeTakeFirst()
     .then((r) => Number(r.numDeletedRows) || 0)
     .catch((e) => {
-      Logger.error(`#RefreshTokenRow.removeAllByUser error ${e}`)
+      Logger.error(`#${tableName}.removeAllByUser error ${e}`)
       throw e
     })
 }
@@ -156,19 +158,17 @@ export async function removeAllExpired(): Promise<number> {
   )
 
   if (lastCreatedAt._t === "Left") {
-    Logger.error(
-      `#RefreshTokenRow.removeAllExpired error ${lastCreatedAt.error}`,
-    )
+    Logger.error(`#${tableName}.removeAllExpired error ${lastCreatedAt.error}`)
     throw new Error(lastCreatedAt.error)
   }
 
   return db
-    .deleteFrom("refresh_token")
+    .deleteFrom(tableName)
     .where("createdAt", "<=", toDate(lastCreatedAt.value))
     .executeTakeFirst()
     .then((r) => Number(r.numDeletedRows) || 0)
     .catch((e) => {
-      Logger.error(`#RefreshTokenRow.removeAllExpired error ${e}`)
+      Logger.error(`#${tableName}.removeAllExpired error ${e}`)
       throw e
     })
 }
@@ -180,7 +180,7 @@ export async function _createExpired(userID: UserID): Promise<RefreshToken> {
   )
   const refreshToken = createRefreshToken()
   return db
-    .insertInto("refresh_token")
+    .insertInto(tableName)
     .values({
       id: refreshToken.unwrap(),
       previousID: refreshToken.unwrap(),
@@ -191,7 +191,7 @@ export async function _createExpired(userID: UserID): Promise<RefreshToken> {
     .executeTakeFirstOrThrow()
     .then(() => refreshToken)
     .catch((e) => {
-      Logger.error(`#RefreshTokenRow._createExpired error ${e}`)
+      Logger.error(`#${tableName}._createExpired error ${e}`)
       throw e
     })
 }

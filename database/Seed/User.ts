@@ -18,7 +18,7 @@ export async function seedDev(): Promise<void> {
 }
 
 async function _seedUsers(newUserData: NewUserData[]): Promise<void> {
-  const password = "rcF-QfgbZbt*t*k6rN"
+  const password = "Qwe1234#"
   const hashedPassword = await Hash.issue(password)
   if (hashedPassword == null) {
     throw new Error(`_seedUsers: Failed to hash password`)

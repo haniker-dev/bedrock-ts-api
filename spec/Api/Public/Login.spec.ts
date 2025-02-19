@@ -12,7 +12,7 @@ import {
   _hashPassword,
 } from "../../Fixture"
 
-describe("Handler/Login", () => {
+describe("Api/Public/Login", () => {
   test("login success", async () => {
     const email = emailDecoder.verify("user@example.com")
     const password = passwordDecoder.verify("Valid4Good.Password")
