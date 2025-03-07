@@ -7,7 +7,7 @@ echo "✈️  === [DEV] Migration ==="
 echo
 echo "🌡  Running migration for development database:"
 export NODE_ENV=development
-source .env.dev
+source .env.development
 ts-node ./database/migrate.ts
 
 echo

@@ -17,7 +17,7 @@ import * as UserRow from "../Database/UserRow"
 import { Method } from "../../../core/Data/Api"
 import { AuthApi, AuthResponseJson } from "../../../core/Data/Api/Auth"
 import { JwtPayload } from "../../../core/App/User/AccessToken"
-import * as AccessToken from "../Core/AccessToken"
+import * as AccessToken from "../App/AccessToken"
 
 /**
  * AuthHandler receives AuthUser on top of PublicHandler

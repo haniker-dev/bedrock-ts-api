@@ -3,8 +3,8 @@ import { Either, left, right } from "../../../../core/Data/Either"
 import * as UserRow from "../../Database/UserRow"
 import * as RefreshTokenRow from "../../Database/RefreshTokenRow"
 import * as Hash from "../../Data/Hash"
-import * as AccessToken from "../../Core/AccessToken"
-import { toUser } from "../../Core/User"
+import * as AccessToken from "../../App/AccessToken"
+import { toUser } from "../../App/User"
 
 export const contract = API.contract
 

@@ -5,18 +5,20 @@ import ENV from "./Env"
 import { HttpLogger } from "./Logger"
 
 const app: Express = express()
-const { APP_PORT } = ENV
+const { APP_PORT, NODE_ENV } = ENV
 
-// We enable CORS for all requests in NodeJS
-// as CORS will be handled externally (eg. by Nginx/API Gateway)
-app.use(
-  cors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  }),
-)
+if (NODE_ENV === "development") {
+  // We enable CORS for all requests in NodeJS in development
+  // as CORS will be handled externally (eg. by Nginx/API Gateway) in staging/production
+  app.use(
+    cors({
+      origin: "*",
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      preflightContinue: false,
+      optionsSuccessStatus: 204,
+    }),
+  )
+}
 
 // Logger agent
 app.use(HttpLogger)

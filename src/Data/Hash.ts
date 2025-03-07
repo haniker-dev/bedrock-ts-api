@@ -1,5 +1,5 @@
 import * as bcrypt from "bcrypt"
-import { Maybe, nothing } from "../../../core/Data/Maybe"
+import { Maybe } from "../../../core/Data/Maybe"
 import { Opaque, jsonValueCreate } from "../../../core/Data/Opaque"
 import * as Logger from "../Logger"
 
@@ -12,9 +12,8 @@ export async function issue(s: string): Promise<Maybe<Hash>> {
     .hash(s, saltRounds)
     .then((hash) => jsonValueCreate<string, typeof key>(key)(hash))
     .catch((error) => {
-      // TODO Will this function really throw?
       Logger.error(`bcrypt issue error: ${error}`)
-      return nothing()
+      return null
     })
 }
 

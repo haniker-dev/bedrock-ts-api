@@ -4,7 +4,7 @@ set -e
 echo
 echo "🌱 === [DEV] Seeding ==="
 export NODE_ENV=development
-source .env.dev
+source .env.development
 ts-node ./database/seed.ts
 
 echo

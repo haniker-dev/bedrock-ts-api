@@ -4,7 +4,7 @@ import { createEmail } from "../../../../core/Data/User/Email"
 import {
   _createUser,
   _defaultPassword,
-  _fromJust,
+  _notNull,
   _fromLeft,
   _fromRight,
   _hashPassword,
@@ -14,7 +14,7 @@ import * as RefreshTokenRow from "../../../src/Database/RefreshTokenRow"
 
 describe("Api/Public/RefreshToken", () => {
   test("refreshes the tokens as 1 row per session", async () => {
-    const email = _fromJust(createEmail("user@example.com"))
+    const email = _notNull(createEmail("user@example.com"))
     const user = await _createUser(email.unwrap())
 
     const refreshTokenCount = await RefreshTokenRow.removeAllByUser(user.id)
@@ -38,7 +38,7 @@ describe("Api/Public/RefreshToken", () => {
   })
 
   test("only last refresh token can be used again", async () => {
-    const email = _fromJust(createEmail("user@example.com"))
+    const email = _notNull(createEmail("user@example.com"))
     const user = await _createUser(email.unwrap())
 
     const { refreshToken: firstToken } = await loginHandler({
@@ -73,8 +73,8 @@ describe("Api/Public/RefreshToken", () => {
   })
 
   test("cannot refresh with different UserID", async () => {
-    const email = _fromJust(createEmail("david@gmail.com"))
-    const email2 = _fromJust(createEmail("sarah@gmail.com"))
+    const email = _notNull(createEmail("david@gmail.com"))
+    const email2 = _notNull(createEmail("sarah@gmail.com"))
     const [david, sarah] = await Promise.all([
       _createUser(email.unwrap()),
       _createUser(email2.unwrap()),
@@ -97,7 +97,7 @@ describe("Api/Public/RefreshToken", () => {
   })
 
   test("cannot refresh with random refreshToken", async () => {
-    const email = _fromJust(createEmail("user@gmail.com"))
+    const email = _notNull(createEmail("user@gmail.com"))
     const user = await _createUser(email.unwrap())
 
     const result = await refreshHandler({
@@ -108,7 +108,7 @@ describe("Api/Public/RefreshToken", () => {
   })
 
   test("cannot refresh with expired refreshToken", async () => {
-    const email = _fromJust(createEmail("user@gmail.com"))
+    const email = _notNull(createEmail("user@gmail.com"))
     const user = await _createUser(email.unwrap())
     const refreshToken = await RefreshTokenRow._createExpired(user.id)
 

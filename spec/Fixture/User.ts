@@ -1,6 +1,6 @@
 import * as UserRow from "../../src/Database/UserRow"
 import * as Hash from "../../src/Data/Hash"
-import { _fromJust } from "./Maybe"
+import { _notNull } from "./Maybe"
 import { createEmail } from "../../../core/Data/User/Email"
 import { createName } from "../../../core/App/User/Name"
 import { createNow } from "../../../core/Data/Timestamp"
@@ -18,8 +18,8 @@ export async function _createUser(
 
   return UserRow.unsafeCreate({
     id: createUserID(),
-    email: _fromJust(createEmail(emailS)),
-    name: _fromJust(createName("Alice")),
+    email: _notNull(createEmail(emailS)),
+    name: _notNull(createName("Alice")),
     password: hashedPassword.unwrap(),
     isDeleted: false,
     createdAt: now,
@@ -29,5 +29,5 @@ export async function _createUser(
 }
 
 export async function _hashPassword(s: string): Promise<Hash.Hash> {
-  return Hash.issue(s).then(_fromJust)
+  return Hash.issue(s).then(_notNull)
 }

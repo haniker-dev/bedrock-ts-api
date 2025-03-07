@@ -1,12 +1,12 @@
 import { handler } from "../../../src/Api/Public/Login"
-import * as AccessToken from "../../../src/Core/AccessToken"
+import * as AccessToken from "../../../src/App/AccessToken"
 import * as RefreshTokenRow from "../../../src/Database/RefreshTokenRow"
 import { emailDecoder } from "../../../../core/Data/User/Email"
 import { passwordDecoder } from "../../../../core/App/User/Password"
 import { toString } from "../../../../core/Data/Security/JsonWebToken"
 import {
   _createUser,
-  _fromJust,
+  _notNull,
   _fromLeft,
   _fromRight,
   _hashPassword,

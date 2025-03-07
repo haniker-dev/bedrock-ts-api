@@ -2,7 +2,6 @@ import * as API from "../../../../core/Api/Auth/UpdateProfile"
 import { Either, left, right } from "../../../../core/Data/Either"
 import { AuthUser } from "../AuthApi"
 import * as Hash from "../../Data/Hash"
-import { nothing } from "../../../../core/Data/Maybe"
 import * as UserRow from "../../Database/UserRow"
 
 export const contract = API.contract
@@ -25,7 +24,7 @@ export async function handler(
   }
 
   const newHashedPassword =
-    newPassword != null ? await Hash.issue(newPassword.unwrap()) : nothing()
+    newPassword != null ? await Hash.issue(newPassword.unwrap()) : null
 
   return right({
     user: await UserRow.update(user.id, {

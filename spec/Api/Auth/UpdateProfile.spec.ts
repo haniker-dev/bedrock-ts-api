@@ -4,7 +4,7 @@ import { emailDecoder } from "../../../../core/Data/User/Email"
 import { passwordDecoder } from "../../../../core/App/User/Password"
 import {
   _createUser,
-  _fromJust,
+  _notNull,
   _fromLeft,
   _fromRight,
   _hashPassword,

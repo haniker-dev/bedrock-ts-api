@@ -2,7 +2,7 @@
 set -e
 
 # shellcheck disable=SC1091
-source .env.dev
+source .env.development
 
 concurrently \
   --names tsc,eslint,nodemon \

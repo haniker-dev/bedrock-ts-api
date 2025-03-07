@@ -1,5 +1,5 @@
-import { Maybe, throwIfNothing } from "../../../core/Data/Maybe"
+import { Maybe, throwIfNull } from "../../../core/Data/Maybe"
 
-export function _fromJust<T>(m: Maybe<T>): T {
-  return throwIfNothing(m, `${m} should not be Nothing`)
+export function _notNull<T>(m: Maybe<T>): T {
+  return throwIfNull(m, `${m} should not be Nothing`)
 }

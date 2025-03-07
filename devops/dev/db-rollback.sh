@@ -3,7 +3,7 @@ set -e
 
 echo "🌡  Running rollback for development database:"
 export NODE_ENV=development
-source .env.dev
+source .env.development
 ts-node ./database/rollback.ts
 
 echo

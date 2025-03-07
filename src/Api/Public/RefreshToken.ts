@@ -1,9 +1,9 @@
 import * as API from "../../../../core/Api/Public/RefreshToken"
 import { Either, left, right } from "../../../../core/Data/Either"
 import * as RefreshTokenRow from "../../Database/RefreshTokenRow"
-import * as AccessToken from "../../Core/AccessToken"
+import * as AccessToken from "../../App/AccessToken"
 import * as UserRow from "../../Database/UserRow"
-import { toUser } from "../../Core/User"
+import { toUser } from "../../App/User"
 import { UserID } from "../../../../core/App/User/UserID"
 import { RefreshToken } from "../../../../core/Data/Security/RefreshToken"
 
